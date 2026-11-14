@@ -1,0 +1,24 @@
+{
+  "name": "proof-gatekeeper-agent",
+  "version": "1.0.0",
+  "description": "Proof Gatekeeper agent for the zkVerify Agent Games competition",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node test/run-tests.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "circomlibjs": "^0.1.7",
+    "snarkjs": "^0.7.6"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

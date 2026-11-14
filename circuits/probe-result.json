@@ -1,0 +1,498 @@
+[
+  {
+    "name": "decision",
+    "size": 1
+  },
+  {
+    "name": "decisionCode",
+    "size": 0
+  },
+  {
+    "name": "isApproved",
+    "size": 0
+  },
+  {
+    "name": "approved",
+    "size": 0
+  },
+  {
+    "name": "approve",
+    "size": 0
+  },
+  {
+    "name": "outcome",
+    "size": 0
+  },
+  {
+    "name": "valid",
+    "size": 0
+  },
+  {
+    "name": "isValid",
+    "size": 0
+  },
+  {
+    "name": "is_valid",
+    "size": 0
+  },
+  {
+    "name": "checksPassed",
+    "size": 0
+  },
+  {
+    "name": "checks_passed",
+    "size": 0
+  },
+  {
+    "name": "reason_code",
+    "size": 0
+  },
+  {
+    "name": "reasonCode",
+    "size": 0
+  },
+  {
+    "name": "reason",
+    "size": 0
+  },
+  {
+    "name": "trap",
+    "size": 0
+  },
+  {
+    "name": "trapType",
+    "size": 0
+  },
+  {
+    "name": "trap_code",
+    "size": 0
+  },
+  {
+    "name": "trapCode",
+    "size": 0
+  },
+  {
+    "name": "rejection_reason",
+    "size": 0
+  },
+  {
+    "name": "rejectionReason",
+    "size": 0
+  },
+  {
+    "name": "amount",
+    "size": 1
+  },
+  {
+    "name": "transfer_amount",
+    "size": 0
+  },
+  {
+    "name": "transferAmount",
+    "size": 0
+  },
+  {
+    "name": "payment_amount",
+    "size": 0
+  },
+  {
+    "name": "minimum",
+    "size": 1
+  },
+  {
+    "name": "min_balance",
+    "size": 0
+  },
+  {
+    "name": "minBalance",
+    "size": 0
+  },
+  {
+    "name": "threshold",
+    "size": 0
+  },
+  {
+    "name": "required_minimum",
+    "size": 0
+  },
+  {
+    "name": "requiredMinimum",
+    "size": 0
+  },
+  {
+    "name": "public_balance",
+    "size": 0
+  },
+  {
+    "name": "balance",
+    "size": 0
+  },
+  {
+    "name": "publicBalance",
+    "size": 1
+  },
+  {
+    "name": "max_transfer",
+    "size": 0
+  },
+  {
+    "name": "maxTransfer",
+    "size": 1
+  },
+  {
+    "name": "cap",
+    "size": 0
+  },
+  {
+    "name": "max_amount",
+    "size": 0
+  },
+  {
+    "name": "maxAmount",
+    "size": 0
+  },
+  {
+    "name": "recipient",
+    "size": 1
+  },
+  {
+    "name": "condition_recipient",
+    "size": 0
+  },
+  {
+    "name": "conditionRecipient",
+    "size": 1
+  },
+  {
+    "name": "expected_recipient",
+    "size": 0
+  },
+  {
+    "name": "expectedRecipient",
+    "size": 0
+  },
+  {
+    "name": "payer",
+    "size": 0
+  },
+  {
+    "name": "sender",
+    "size": 0
+  },
+  {
+    "name": "expiry_block",
+    "size": 0
+  },
+  {
+    "name": "expiryBlock",
+    "size": 1
+  },
+  {
+    "name": "expiry",
+    "size": 0
+  },
+  {
+    "name": "expiration_block",
+    "size": 0
+  },
+  {
+    "name": "expirationBlock",
+    "size": 0
+  },
+  {
+    "name": "current_block",
+    "size": 0
+  },
+  {
+    "name": "currentBlock",
+    "size": 1
+  },
+  {
+    "name": "block_number",
+    "size": 0
+  },
+  {
+    "name": "blockNumber",
+    "size": 0
+  },
+  {
+    "name": "blockHeight",
+    "size": 0
+  },
+  {
+    "name": "timestamp",
+    "size": 0
+  },
+  {
+    "name": "issued_at",
+    "size": 0
+  },
+  {
+    "name": "issuedAt",
+    "size": 0
+  },
+  {
+    "name": "deadline_at",
+    "size": 0
+  },
+  {
+    "name": "deadlineAt",
+    "size": 0
+  },
+  {
+    "name": "registered_vk",
+    "size": 0
+  },
+  {
+    "name": "registeredVk",
+    "size": 0
+  },
+  {
+    "name": "expected_vk",
+    "size": 0
+  },
+  {
+    "name": "expectedVk",
+    "size": 0
+  },
+  {
+    "name": "condition_vk",
+    "size": 0
+  },
+  {
+    "name": "conditionVk",
+    "size": 0
+  },
+  {
+    "name": "proof_vk",
+    "size": 0
+  },
+  {
+    "name": "proofVk",
+    "size": 0
+  },
+  {
+    "name": "actual_vk",
+    "size": 0
+  },
+  {
+    "name": "actualVk",
+    "size": 0
+  },
+  {
+    "name": "vk",
+    "size": 0
+  },
+  {
+    "name": "vk_hash",
+    "size": 0
+  },
+  {
+    "name": "vkHash",
+    "size": 0
+  },
+  {
+    "name": "registered_vk_hash",
+    "size": 0
+  },
+  {
+    "name": "proof_vk_hash",
+    "size": 0
+  },
+  {
+    "name": "proof_tx",
+    "size": 0
+  },
+  {
+    "name": "proofTx",
+    "size": 0
+  },
+  {
+    "name": "proof_ref",
+    "size": 0
+  },
+  {
+    "name": "proofRef",
+    "size": 0
+  },
+  {
+    "name": "proofHash",
+    "size": 0
+  },
+  {
+    "name": "proof_hash",
+    "size": 0
+  },
+  {
+    "name": "tx_hash",
+    "size": 0
+  },
+  {
+    "name": "txHash",
+    "size": 0
+  },
+  {
+    "name": "aggregation_id",
+    "size": 0
+  },
+  {
+    "name": "aggregationId",
+    "size": 0
+  },
+  {
+    "name": "task_id",
+    "size": 0
+  },
+  {
+    "name": "taskId",
+    "size": 1
+  },
+  {
+    "name": "task_hash",
+    "size": 0
+  },
+  {
+    "name": "taskHash",
+    "size": 0
+  },
+  {
+    "name": "id",
+    "size": 0
+  },
+  {
+    "name": "finalized",
+    "size": 0
+  },
+  {
+    "name": "is_finalized",
+    "size": 0
+  },
+  {
+    "name": "isFinalized",
+    "size": 0
+  },
+  {
+    "name": "proof_finalized",
+    "size": 0
+  },
+  {
+    "name": "is_onchain",
+    "size": 0
+  },
+  {
+    "name": "onchain",
+    "size": 0
+  },
+  {
+    "name": "verified",
+    "size": 0
+  },
+  {
+    "name": "proof_verified",
+    "size": 0
+  },
+  {
+    "name": "proofVerified",
+    "size": 0
+  },
+  {
+    "name": "nonce",
+    "size": 0
+  },
+  {
+    "name": "salt",
+    "size": 1
+  },
+  {
+    "name": "nullifier",
+    "size": 0
+  },
+  {
+    "name": "mode",
+    "size": 0
+  },
+  {
+    "name": "version",
+    "size": 0
+  },
+  {
+    "name": "domain",
+    "size": 0
+  },
+  {
+    "name": "chain_id",
+    "size": 0
+  },
+  {
+    "name": "chainId",
+    "size": 0
+  },
+  {
+    "name": "circuit_version",
+    "size": 0
+  },
+  {
+    "name": "circuitVersion",
+    "size": 0
+  },
+  {
+    "name": "protocol_version",
+    "size": 0
+  },
+  {
+    "name": "public_inputs_hash",
+    "size": 0
+  },
+  {
+    "name": "publicInputsHash",
+    "size": 0
+  },
+  {
+    "name": "commitment",
+    "size": 0
+  },
+  {
+    "name": "root",
+    "size": 0
+  },
+  {
+    "name": "main.decision",
+    "size": 0
+  },
+  {
+    "name": "main.amount",
+    "size": 0
+  },
+  {
+    "name": "main.recipient",
+    "size": 0
+  },
+  {
+    "name": "a",
+    "size": 0
+  },
+  {
+    "name": "b",
+    "size": 0
+  },
+  {
+    "name": "c",
+    "size": 0
+  },
+  {
+    "name": "x",
+    "size": 0
+  },
+  {
+    "name": "y",
+    "size": 0
+  },
+  {
+    "name": "in",
+    "size": 0
+  },
+  {
+    "name": "out",
+    "size": 0
+  }
+]
