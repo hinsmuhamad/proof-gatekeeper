@@ -1,0 +1,11 @@
+node_modules/
+state/
+research/
+test/
+.git/
+.gitignore
+circuits/*.wasm
+circuits/*.zkey
+*.log
+*.out
+.env

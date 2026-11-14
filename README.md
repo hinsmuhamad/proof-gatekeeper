@@ -115,6 +115,26 @@ npm start       # listens on http://0.0.0.0:3000
 Copy `.env.example` to `.env` for the variable list. Never commit a real
 `.env`, never paste a secret into any tool.
 
+## Deploy with Docker
+
+```bash
+docker build -t proof-gatekeeper .
+docker run -d --name gatekeeper --restart unless-stopped \
+  -p 3000:3000 \
+  -e AGENT_GAMES_HMAC_SECRET='<one-time plaintext from the dashboard>' \
+  -e KURIER_API_KEY='<kurier mainnet key>' \
+  -v gatekeeper-state:/app/state \
+  proof-gatekeeper
+```
+
+The image downloads the two binary circuit artifacts (`gatekeeper.wasm`,
+`gatekeeper_final.zkey`) at build time from the official public endpoint,
+so they never need to be committed. The server listens on `$PORT`
+(default 3000). Register the public URL with its full path
+(`https://<host>/agent`) in the dashboard under Manage Agents, then run
+"Test preflight". Keep `/app/state` persistent: `seen-proofs.json` is the
+PROOF_REUSED memory.
+
 ## How preflight works
 
 `POST /preflight` answers `{ ok: true, protocolVersion: "v1" }` (signed
