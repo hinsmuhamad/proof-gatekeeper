@@ -137,15 +137,28 @@ PROOF_REUSED memory.
 
 ## How preflight works
 
-`POST /preflight` answers `{ ok: true, protocolVersion: "v1" }` (signed
-with the HMAC secret when one is configured). If a signature header is
-present on the preflight request it is verified; if absent the endpoint
-still answers, because preflight is a liveness check. Run it, then run at
-least one Practice task from the dashboard before the first scored round.
+The platform sends its preflight handshake to the registered agent
+endpoint URL itself (`POST /agent`), not to the standalone `/preflight`
+route, so `handleAgent` answers any non-task payload (preflight marker,
+empty body, or any envelope whose `type` is not
+`agent-games.proof-gatekeeper.v1`) with a signed
+`{ ok: true, protocolVersion: "v1" }`. A real scored task always carries
+that type and a full `input` object, so the two can never be confused.
+`POST /preflight` answers the same object and is kept as a standalone
+liveness route. If a signature header is present on the preflight request
+it is verified; if absent the endpoint still answers, because preflight
+is a liveness check. Run it, then run at least one Practice task from
+the dashboard before the first scored round.
+
+Found live 2026-11-15: the first build treated the handshake as a task
+and answered `REJECT`/`INVALID_TASK`, so the dashboard refused to save
+the endpoint ("Agent endpoint must be a valid HTTPS URL") even though
+the URL was reachable. The handshake detection above is the fix.
 
 ## What was tested
 
-`npm test` — **31 checks, all passing** (run 2026-11-14):
+`npm test` — **35 checks, all passing** (run 2026-11-15, after the
+preflight-handshake fix):
 
 1. **Decision logic (15 checks)**: valid approve; each of the six scored
    traps; unfinalized; the three boundary values (balance == minimum,
@@ -156,11 +169,14 @@ least one Practice task from the dashboard before the first scored round.
    Groth16 proof that verifies against the official verification key,
    **and the opposite decision fails to prove**. This is the strongest
    check in the suite: decision logic and circuit agree exactly.
-3. **HTTP server (9 checks)**: `/health`, `/preflight`, `/agent` with a
+3. **HTTP server (13 checks)**: `/health`, `/preflight`, `/agent` with a
    valid signature (decision APPROVE, response signature verifies,
    round trip ~309 ms), tampered body → 401, wrong secret → 401,
    missing signature → 401, trap → correct REJECT, PROOF_REUSED across
-   requests, replay → same decision.
+   requests, replay → same decision, plus the preflight handshake on
+   `/agent` itself: `type: "preflight"`, empty object, wrong-type
+   payload, and empty body all answer `{ ok: true, protocolVersion: "v1" }`
+   with a valid signature.
 4. **Standalone smoke test**: `npm start` binds, `/health` and
    `/preflight` answer correctly.
 

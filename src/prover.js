@@ -83,7 +83,31 @@ export function encodeTaskId(taskId) {
  * @param {string} [saltHex] - optional fixed salt (tests); otherwise random
  */
 export function buildCircuitInput(task, decision, saltHex) {
-  const input = task.input;
+  // Defensive: the proof step must never crash with a raw TypeError on a
+  // malformed task (seen live 2026-11-15: "Cannot read properties of
+  // undefined (reading 'amount')" when the platform's preflight handshake
+  // reached the proof step). Fail with a clear message instead; the
+  // caller logs it and still returns the decision.
+  const input = task?.input;
+  if (!input || typeof input !== "object") {
+    throw new Error("buildCircuitInput: task.input is missing");
+  }
+  for (const f of [
+    "amount",
+    "minimum",
+    "public_balance",
+    "max_transfer",
+    "recipient",
+    "condition_recipient",
+    "expiry_block",
+    "current_block",
+    "registered_vk",
+    "proof_vk",
+  ]) {
+    if (input[f] === undefined || input[f] === null || input[f] === "") {
+      throw new Error(`buildCircuitInput: missing input.${f}`);
+    }
+  }
   const salt = saltHex
     ? toFieldBigInt(`0x${saltHex}`).toString()
     : toFieldBigInt(`0x${crypto.randomBytes(31).toString("hex")}`).toString();

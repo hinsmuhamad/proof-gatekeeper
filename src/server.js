@@ -6,7 +6,10 @@
 //   POST /preflight - returns { ok: true, protocolVersion: "v1" }
 //   POST /agent     - the competition endpoint: HMAC-verified task in,
 //                     signed { decision, reason_code, proof_tx } out,
-//                     inside the 60s platform deadline.
+//                     inside the 60s platform deadline. The platform
+//                     sends its preflight handshake to this URL too, so
+//                     /agent answers non-task payloads with the signed
+//                     preflight response instead of a decision.
 //
 // Flow per task (fail closed, decision first, proof second):
 //   1. Verify x-agent-games-signature over the RAW body (before parsing).
@@ -97,6 +100,23 @@ async function handleAgent(req, res) {
   }, config.responseDeadlineMs);
   guard.unref?.();
 
+  // The platform sends its preflight handshake to the registered endpoint
+  // URL itself (/agent), not to the standalone /preflight route, so this
+  // handler must answer it: a signed { ok: true, protocolVersion: "v1" }.
+  // A real scored task always carries type EXPECTED_TYPE and a full input
+  // object, so anything else (a preflight marker, an empty body, a
+  // non-task payload) is a handshake, not a task. Verified live on
+  // 2026-11-15: without this, the platform's handshake was treated as a
+  // task, answered REJECT/INVALID_TASK, and the dashboard refused to
+  // save the endpoint ("Agent endpoint must be a valid HTTPS URL").
+  const answerPreflight = () => {
+    clearTimeout(guard);
+    if (responded) return;
+    responded = true;
+    log("info", "preflight handshake on /agent; answering { ok: true, protocolVersion: v1 }");
+    jsonResponse(res, 200, { ok: true, protocolVersion: "v1" });
+  };
+
   try {
     const rawBody = await readRawBody(req);
     const auth = checkAuth(req, rawBody);
@@ -113,8 +133,12 @@ async function handleAgent(req, res) {
     try {
       task = JSON.parse(rawBody.toString("utf8"));
     } catch {
-      clearTimeout(guard);
-      failClosed("REJECT", "INVALID_TASK", "0x0000000000000000000000000000000000000000");
+      // Unparseable (including empty) body: a liveness handshake, not a task.
+      answerPreflight();
+      return;
+    }
+    if (!task || typeof task !== "object" || task.type !== EXPECTED_TYPE) {
+      answerPreflight();
       return;
     }
 

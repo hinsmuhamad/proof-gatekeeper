@@ -207,6 +207,28 @@ await checkAsync("POST /preflight returns {ok:true, protocolVersion:v1}", async 
   assert.equal(r.status, 200);
   assert.deepEqual(r.json, { ok: true, protocolVersion: "v1" });
 });
+await checkAsync("POST /agent preflight handshake -> {ok:true, protocolVersion:v1}, signed", async () => {
+  const r = await post("/agent", { type: "preflight" });
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.json, { ok: true, protocolVersion: "v1" });
+  assert.ok(r.sig, "missing response signature");
+  assert.equal(hmacHex(SECRET, r.raw), r.sig);
+});
+await checkAsync("POST /agent empty object -> preflight answer", async () => {
+  const r = await post("/agent", {});
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.json, { ok: true, protocolVersion: "v1" });
+});
+await checkAsync("POST /agent wrong-type payload -> preflight answer, not a decision", async () => {
+  const r = await post("/agent", mockTask({ type: "something.else" }));
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.json, { ok: true, protocolVersion: "v1" });
+});
+await checkAsync("POST /agent empty body -> preflight answer", async () => {
+  const r = await post("/agent", null, { rawBody: Buffer.alloc(0) });
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.json, { ok: true, protocolVersion: "v1" });
+});
 let agentTimingMs = 0;
 await checkAsync("POST /agent valid task -> APPROVE, signed response", async () => {
   const t0 = Date.now();
